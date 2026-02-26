@@ -1,0 +1,97 @@
+\documentclass{article}
+
+\usepackage[serbian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\newtheorem{lemma}{Lema}
+\newtheorem{theorem}{Teorema}
+
+
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\title{Minimizacija Menhetn rastojanja}
+\author{Staša Đorđević 1007/2025\\
+\small Matematički fakultet Univerziteta u Beogradu}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Uvod}
+
+Neka je dat skup tačaka $P = \{p_1, p_2, \dots, p_n\}$ u ravni, gde svaka tačka 
+$p_i = (x_i, y_i)$ ima celobrojne koordinate. 
+Za dve tačke $p_i$ i $p_j$ njihovo \emph{Menhetn rastojanje} definisano je formulom
+
+\[
+d(p_i, p_j) = |x_i - x_j| + |y_i - y_j|.
+\]
+
+Menhetn rastojanje predstavlja dužinu najkraće putanje
+između dve tačke ukoliko je kretanje dozvoljeno samo horizontalno i vertikalno.
+
+U ovom radu razmatramo sledeći problem:  
+za dati skup tačaka potrebno je ukloniti tačno jednu tačku tako da maksimalno
+Menhetn rastojanje između bilo koje dve preostale tačke bude minimalno.
+
+Formalno, za svaku tačku $p_k \in P$ posmatramo skup
+\[
+P_k = P \setminus \{p_k\}
+\]
+i definišemo
+\[
+D_k = \max_{p_i, p_j \in P_k} d(p_i, p_j).
+\]
+Zadatak je pronaći
+\[
+\min_{1 \le k \le n} D_k.
+\]
+
+Intuitivno, cilj je ukloniti tačku koja najviše "razvlači" skup, odnosno
+tačku čije prisustvo uzrokuje veliko maksimalno rastojanje između nekog para tačaka.
+
+\subsection*{Primer}
+
+Posmatrajmo skup od četiri tačke:
+\[
+(0,0),\ (1,1),\ (2,2),\ (10,10).
+\]
+Tačka $(10,10)$ je značajno udaljena od ostalih i određuje maksimalno
+Menhetn rastojanje u skupu.  
+Uklanjanjem ove tačke maksimalno rastojanje među preostalim tačkama
+značajno se smanjuje, što ilustruje suštinu problema.
+
+\medskip
+
+\section{Naivno rešenje}
+...
+\section{Optimalno rešenje}
+
+Uvodimo oznake si i di...
+
+
+\begin{thebibliography}{9}
+
+\bibitem{rad}
+Timothy M. Chan, Nan Hu. \emph{Geometric red–blue set cover for unit squares and related
+problems} Journal of Computational Geometry (2014): 380-385.
+
+\end{thebibliography}
+
+\end{document}

@@ -39,3 +39,34 @@
 
 # debug information files
 *.dwo
+
+# =========================
+# LaTeX auxiliary files
+# =========================
+
+*.aux
+*.log
+*.toc
+*.out
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+
+# Latexmk
+latexmk
+
+# Temporary files
+*.xdv
+*.dvi
+*.ps
+
+.DS_Store
