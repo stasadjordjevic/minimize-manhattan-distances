@@ -67,7 +67,7 @@ Intuitivno, cilj je ukloniti tačku koja najviše razvlači skup, odnosno
 tačku čije prisustvo uzrokuje veliko maksimalno rastojanje između nekog para tačaka.
 
 \subsection*{Primer}
-
+%TODO dodati sliku
 Posmatrajmo skup od četiri tačke:
 \[
 (0,0),\ (1,1),\ (2,2),\ (10,10).
@@ -189,6 +189,17 @@ Kad smo našli maksimalno rastojanje (neka ono bude između tačaka sa indeksima
 Vremenska složenost ovakvog pristupa je $O(n)$.
 
 \section{Implementacija}
+
+Jedan mogući pristup implementaciji je korišćenje uređenih struktura podataka (kao što je \texttt{multiset}) za čuvanje transformisanih koordinata tačaka, konkretno:
+\[
+\text{sum}_i = x_i + y_i, \quad \text{diff}_i = x_i - y_i
+\]
+za svaku tačku $i$. 
+
+Ideja je da za svaku tačku privremeno uklonimo njene transformisane vrednosti iz struktura i izračunamo maksimalno Menhetn rastojanje preostalih tačaka. Na taj način možemo proveriti koji izbor tačke za uklanjanje daje minimalnu maksimalnu udaljenost.
+
+Pošto \texttt{multiset} održava uređenje, operacije umetanja i uklanjanja zahtevaju vremensku složenost $O(\log n)$, a iteracija kroz sve tačke dodaje faktor $n$, pa ukupna vremenska složenost ovog pristupa iznosi $O(n \log n)$. Iako ovo rešenje radi, znamo da problem može biti rešen u linearnom vremenu koristeći jednostavnu analizu sumi i razlika bez potrebe za dodatnim uređenim strukturama.
+
 
 \begin{thebibliography}{9}
 
