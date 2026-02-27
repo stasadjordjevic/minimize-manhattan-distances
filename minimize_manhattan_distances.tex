@@ -63,7 +63,7 @@ Zadatak je pronaći
 \min_{1 \le k \le n} D_k.
 \]
 
-Intuitivno, cilj je ukloniti tačku koja najviše "razvlači" skup, odnosno
+Intuitivno, cilj je ukloniti tačku koja najviše razvlači skup, odnosno
 tačku čije prisustvo uzrokuje veliko maksimalno rastojanje između nekog para tačaka.
 
 \subsection*{Primer}
@@ -80,11 +80,115 @@ značajno se smanjuje, što ilustruje suštinu problema.
 \medskip
 
 \section{Naivno rešenje}
-...
+
+
+Naivni pristup podrazumeva da za svaku tačku računamo Menhetn rastojanje do svih
+ostalih tačaka u skupu, čime možemo odrediti maksimalno rastojanje i indekse
+tačaka koje ga ostvaruju.
+
+Nakon toga, potrebno je odlučiti koju od te dve tačke ukloniti.
+To možemo uraditi tako što za svaku od njih posebno izračunamo maksimalno
+Menhetn rastojanje u skupu koji se dobija izbacivanjem druge tačke.
+Tačka čijim uklanjanjem dobijamo manju maksimalnu udaljenost predstavlja
+bolji izbor za uklanjanje.
+
+Međutim, moguće je da već postoji par tačaka sa većim rastojanjem koji ne
+uključuje nijednu od prethodno posmatranih tačaka. U tom slučaju,
+izbor između te dve tačke nije od presudnog značaja, jer njihovo uklanjanje
+ne utiče na globalni maksimum.
+
+Alternativno, sve izračunate udaljenosti možemo sačuvati u pogodnoj
+strukturi podataka koja preslikava vrednosti rastojanja u indekse tačaka
+koje ih ostvaruju, pri čemu je struktura uređena po veličini rastojanja.
+Iz takve strukture možemo najpre uzeti najveću vrednost i pročitati indekse
+tačaka $i$ i $j$ koje je ostvaruju. Zatim posmatramo sledeću najveću
+vrednost. Ako ona uključuje neku od tačaka $i$ ili $j$, tu tačku biramo
+za uklanjanje. Ukoliko druga najveća vrednost ne uključuje nijednu od njih,
+izbor između $i$ i $j$ nije bitan.
+
+Ovakav pristup zahteva proveru svih parova tačaka, pa je njegova vremenska
+složenost $O(n^2)$, što nije optimalno za veće ulazne skupove.
+
 \section{Optimalno rešenje}
 
-Uvodimo oznake si i di...
+Posmatrajmo dve tačke $p_i = (x_i, y_i)$ i $p_j = (x_j, y_j)$.
+Njihovo Menhetn rastojanje dato je formulom
 
+\[
+d(p_i,p_j) = |x_i - x_j| + |y_i - y_j|.
+\]
+
+Zavisno od međusobnog položaja tačaka u ravni, apsolutne vrednosti se mogu
+razložiti na četiri slučaja:
+
+\[
+d(p_i,p_j) =
+\begin{cases}
+(x_i - x_j) + (y_i - y_j), & x_i \ge x_j,\ y_i \ge y_j, \\
+(x_i - x_j) - (y_i - y_j), & x_i \ge x_j,\ y_i < y_j, \\
+-(x_i - x_j) + (y_i - y_j), & x_i < x_j,\ y_i \ge y_j, \\
+-(x_i - x_j) - (y_i - y_j), & x_i < x_j,\ y_i < y_j.
+\end{cases}
+\]
+
+Grupisanjem članova koji zavise od indeksa $i$ i $j$ dobijamo:
+
+\[
+d(p_i,p_j) =
+\begin{cases}
+(x_i + y_i) - (x_j + y_j), \\
+(x_i - y_i) - (x_j - y_j), \\
+-(x_i - y_i) + (x_j - y_j), \\
+-(x_i + y_i) + (x_j + y_j).
+\end{cases}
+\]
+
+Odavde vidimo da se javljaju samo sume i razlike koordinata jedne tačke.
+Uvedimo sada sledeće oznake:
+
+\[
+\text{sum}_i = x_i + y_i, \qquad
+\text{diff}_i = x_i - y_i.
+\]
+
+Tada se Menhetn rastojanje može zapisati u kompaktnijem obliku:
+
+\[
+d(p_i,p_j) =
+\begin{cases}
+\text{sum}_i - \text{sum}_j, \\
+\text{diff}_i - \text{diff}_j, \\
+-(\text{diff}_i - \text{diff}_j) = \text{diff}_j - \text{diff}_i,  \\
+-(\text{sum}_i - \text{sum}_j) = \text{sum}_j - \text{sum}_i.
+\end{cases}
+\]
+
+Iz prethodnog izraza sledi da maksimalno Menhetn rastojanje između bilo koje
+dve tačke u skupu može biti ostvareno ili kao maksimalna razlika vrednosti
+$\text{sum}_i$, ili kao maksimalna razlika vrednosti $\text{diff}_i$.
+
+
+Preciznije, važi
+
+\[
+\max_{i,j} d(p_i,p_j)
+=
+\max \left(
+\max_i \text{sum}_i - \min_i \text{sum}_i,\ 
+\max_i \text{diff}_i - \min_i \text{diff}_i
+\right).
+\]
+
+Dakle, problem pronalaženja maksimalnog Menhetn rastojanja svodi se na
+pronalaženje ekstremnih vrednosti transformisanih koordinata
+$\text{sum}_i = x_i + y_i$ i $\text{diff}_i = x_i - y_i$, što omogućava
+rešavanje u linearnom vremenu.
+
+Kad smo našli maksimalno rastojanje (neka ono bude između tačaka sa indeksima i i j), treba videti koju od dve tačke treba ukloniti tako da minimizujemo maksimalno rastojanje skupa tačaka. Jasno je da će uklanjanjem tačno jedne od njih maksimalno rastojanje biti manje ili jednako, nikako veće. Treba proveriti sada drugo najveće rastojanje i tačke koje učestvuju u njemu. To možemo uraditi na isti način kao što smo odredili maksimalno rastojanje. Ako jedna od tačaka $p_i$ ili $p_j$ učestvuje u drugom maksimalnom rastojanju, nju treba ukloniti. Inače je svejedno koja će biti uklonjena.
+
+Vremenska složenost ovakvog pristupa je $O(n)$.
+
+\section{Implementacija}
 
 \begin{thebibliography}{9}
 
