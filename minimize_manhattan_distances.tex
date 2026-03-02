@@ -74,6 +74,7 @@ Posmatrajmo skup od četiri tačke:
 \]
 Tačka $(10,10)$ je značajno udaljena od ostalih i određuje maksimalno
 Menhetn rastojanje u skupu.  
+
 Uklanjanjem ove tačke maksimalno rastojanje među preostalim tačkama
 značajno se smanjuje, što ilustruje suštinu problema.
 
@@ -82,32 +83,17 @@ značajno se smanjuje, što ilustruje suštinu problema.
 \section{Naivno rešenje}
 
 
-Naivni pristup podrazumeva da za svaku tačku računamo Menhetn rastojanje do svih
-ostalih tačaka u skupu, čime možemo odrediti maksimalno rastojanje i indekse
-tačaka koje ga ostvaruju.
+Naivni pristup podrazumeva da za svaku tačku računamo Menhetn rastojanje do svih ostalih tačaka u skupu, čime možemo odrediti maksimalno rastojanje i indekse tačaka koje ga ostvaruju.
 
-Nakon toga, potrebno je odlučiti koju od te dve tačke ukloniti.
-To možemo uraditi tako što za svaku od njih posebno izračunamo maksimalno
-Menhetn rastojanje u skupu koji se dobija izbacivanjem druge tačke.
-Tačka čijim uklanjanjem dobijamo manju maksimalnu udaljenost predstavlja
-bolji izbor za uklanjanje.
+Nakon toga, potrebno je odlučiti koju od te dve tačke ukloniti. To možemo uraditi tako što za svaku od njih posebno izračunamo maksimalno Menhetn rastojanje u skupu koji se dobija izbacivanjem druge tačke.
+Tačka čijim uklanjanjem dobijamo manju maksimalnu udaljenost predstavlja bolji izbor za uklanjanje.
 
-Međutim, moguće je da već postoji par tačaka sa većim rastojanjem koji ne
-uključuje nijednu od prethodno posmatranih tačaka. U tom slučaju,
-izbor između te dve tačke nije od presudnog značaja, jer njihovo uklanjanje
-ne utiče na globalni maksimum.
+Međutim, moguće je da već postoji par tačaka sa većim rastojanjem koji ne uključuje nijednu od prethodno posmatranih tačaka. U tom slučaju, izbor između te dve tačke nije od presudnog značaja, jer njihovo uklanjanje ne utiče na globalni maksimum.
 
-Alternativno, sve izračunate udaljenosti možemo sačuvati u pogodnoj
-strukturi podataka koja preslikava vrednosti rastojanja u indekse tačaka
-koje ih ostvaruju, pri čemu je struktura uređena po veličini rastojanja.
-Iz takve strukture možemo najpre uzeti najveću vrednost i pročitati indekse
-tačaka $i$ i $j$ koje je ostvaruju. Zatim posmatramo sledeću najveću
-vrednost. Ako ona uključuje neku od tačaka $i$ ili $j$, tu tačku biramo
-za uklanjanje. Ukoliko druga najveća vrednost ne uključuje nijednu od njih,
-izbor između $i$ i $j$ nije bitan.
+Alternativno, sve izračunate udaljenosti možemo sačuvati u pogodnoj strukturi podataka koja preslikava vrednosti rastojanja u indekse tačaka koje ih ostvaruju, pri čemu je struktura uređena po veličini rastojanja.
+Iz takve strukture možemo najpre uzeti najveću vrednost i pročitati indekse tačaka $i$ i $j$ koje je ostvaruju. Zatim posmatramo sledeću najveću vrednost. Ako ona uključuje neku od tačaka $i$ ili $j$, tu tačku biramo za uklanjanje. Ukoliko druga najveća vrednost ne uključuje nijednu od njih, izbor između $i$ i $j$ nije bitan.
 
-Ovakav pristup zahteva proveru svih parova tačaka, pa je njegova vremenska
-složenost $O(n^2)$, što nije optimalno za veće ulazne skupove.
+Ovakav pristup zahteva proveru svih parova tačaka, pa je njegova vremenska složenost $O(n^2)$, što nije optimalno za veće ulazne skupove.
 
 \section{Optimalno rešenje}
 
@@ -118,8 +104,7 @@ Njihovo Menhetn rastojanje dato je formulom
 d(p_i,p_j) = |x_i - x_j| + |y_i - y_j|.
 \]
 
-Zavisno od međusobnog položaja tačaka u ravni, apsolutne vrednosti se mogu
-razložiti na četiri slučaja:
+Zavisno od međusobnog položaja tačaka u ravni, apsolutne vrednosti se mogu razložiti na četiri slučaja:
 
 \[
 d(p_i,p_j) =
@@ -163,9 +148,7 @@ d(p_i,p_j) =
 \end{cases}
 \]
 
-Iz prethodnog izraza sledi da maksimalno Menhetn rastojanje između bilo koje
-dve tačke u skupu može biti ostvareno ili kao maksimalna razlika vrednosti
-$\text{sum}_i$, ili kao maksimalna razlika vrednosti $\text{diff}_i$.
+Iz prethodnog izraza sledi da maksimalno Menhetn rastojanje između bilo koje dve tačke u skupu može biti ostvareno ili kao maksimalna razlika vrednosti $\text{sum}_i$, ili kao maksimalna razlika vrednosti $\text{diff}_i$.
 
 
 Preciznije, važi
@@ -179,17 +162,16 @@ Preciznije, važi
 \right).
 \]
 
-Dakle, problem pronalaženja maksimalnog Menhetn rastojanja svodi se na
-pronalaženje ekstremnih vrednosti transformisanih koordinata
-$\text{sum}_i = x_i + y_i$ i $\text{diff}_i = x_i - y_i$, što omogućava
-rešavanje u linearnom vremenu.
+Dakle, problem pronalaženja maksimalnog Menhetn rastojanja svodi se na pronalaženje ekstremnih vrednosti transformisanih koordinata $\text{sum}_i = x_i + y_i$ i $\text{diff}_i = x_i - y_i$, što omogućava rešavanje u linearnom vremenu.
 
-Kad smo našli maksimalno rastojanje (neka ono bude između tačaka sa indeksima i i j), treba videti koju od dve tačke treba ukloniti tako da minimizujemo maksimalno rastojanje skupa tačaka. Jasno je da će uklanjanjem tačno jedne od njih maksimalno rastojanje biti manje ili jednako, nikako veće. Treba proveriti sada drugo najveće rastojanje i tačke koje učestvuju u njemu. To možemo uraditi na isti način kao što smo odredili maksimalno rastojanje. Ako jedna od tačaka $p_i$ ili $p_j$ učestvuje u drugom maksimalnom rastojanju, nju treba ukloniti. Inače je svejedno koja će biti uklonjena.
-
-Vremenska složenost ovakvog pristupa je $O(n)$.
+Kad smo našli maksimalno rastojanje (neka ono bude između tačaka sa indeksima i i j), treba videti koju od dve tačke treba ukloniti tako da minimizujemo maksimalno rastojanje skupa tačaka. Jasno je da će uklanjanjem tačno jedne od njih maksimalno rastojanje biti manje ili jednako, nikako veće. Treba proveriti sada da li je manje maksimalno rastojanje koje se dobija kad se ukloni prva tačka ili ono koje se dobije kada se ukloni druga tačka.
 
 \section{Implementacija}
+U ovoj sekciji biće prikazana dva pristupa implementaciji prethodno opisanog algoritma. Prvi pristup koristi uređene strukture podataka i ima vremensku složenost $O(n \log n)$, dok drugi pristup koristi direktno održavanje ekstremnih vrednosti transformisanih koordinata i omogućava linearnu vremensku složenost $O(n)$.
 
+Oba pristupa zasnivaju se na istom matematičkom uvidu - da se maksimalno Menhetn rastojanje može izraziti preko ekstremnih vrednosti izraza $x_i + y_i$ i $x_i - y_i$ - ali se razlikuju u načinu organizacije podataka i analizi složenosti.
+
+\subsection{Implementacija složenosti $O(n \log n)$}
 Jedan mogući pristup implementaciji je korišćenje uređenih struktura podataka (kao što je \texttt{multiset}) za čuvanje transformisanih koordinata tačaka, konkretno:
 \[
 \text{sum}_i = x_i + y_i, \quad \text{diff}_i = x_i - y_i
@@ -200,13 +182,49 @@ Ideja je da za svaku tačku privremeno uklonimo njene transformisane vrednosti i
 
 Pošto \texttt{multiset} održava uređenje, operacije umetanja i uklanjanja zahtevaju vremensku složenost $O(\log n)$, a iteracija kroz sve tačke dodaje faktor $n$, pa ukupna vremenska složenost ovog pristupa iznosi $O(n \log n)$. Iako ovo rešenje radi, znamo da problem može biti rešen u linearnom vremenu koristeći jednostavnu analizu sumi i razlika bez potrebe za dodatnim uređenim strukturama.
 
+\subsection{Implementacija složenosti $O(n)$}
+Implementacija se zasniva na funkciji \texttt{extremePoints},  koja za dati skup tačaka (uz eventualno preskakanje jedne tačke)  pronalazi dve tačke koje ostvaruju maksimalno Menhetn rastojanje.
 
-\begin{thebibliography}{9}
+Umesto eksplicitnog računanja svih parova, funkcija prolazi kroz sve tačke i održava sledeće ekstremne vrednosti:
 
-\bibitem{rad}
-Timothy M. Chan, Nan Hu. \emph{Geometric red–blue set cover for unit squares and related
-problems} Journal of Computational Geometry (2014): 380-385.
+\[
+\max_i (x_i + y_i), \quad \min_i (x_i + y_i),
+\]
+\[
+\max_i (x_i - y_i), \quad \min_i (x_i - y_i).
+\]
 
-\end{thebibliography}
+Na osnovu ovih vrednosti određuju se kandidati za par tačaka koje ostvaruju maksimalno rastojanje.
+
+Funkcija vraća indekse dve tačke koje daju veću od vrednosti
+
+\[
+\max_i \text{sum}_i - \min_i \text{sum}_i
+\quad \text{i} \quad
+\max_i \text{diff}_i - \min_i \text{diff}_i.
+\]
+
+U glavnoj funkciji \texttt{minimumDistance} postupak je sledeći:
+
+\begin{enumerate}
+    \item Prvo se pronađe par tačaka koje ostvaruju globalno maksimalno rastojanje.
+    \item Zatim se simulira uklanjanje prve tačke iz tog para i ponovo se računa maksimalno rastojanje.
+    \item Isto se uradi i za drugu tačku.
+    \item Kao konačan rezultat uzima se minimum od ta dva dobijena rastojanja.
+\end{enumerate}
+
+Funkcija \texttt{extremePoints} prolazi kroz sve tačke tačno jednom, pa ima vremensku složenost $O(n)$.
+
+U funkciji \texttt{minimumDistance} ova funkcija se poziva tri puta:
+\begin{itemize}
+    \item jednom za ceo skup,
+    \item jednom bez prve ekstremne tačke,
+    \item jednom bez druge ekstremne tačke.
+\end{itemize}
+
+Pa je ukupna vremenska složenost $3*O(n) = O(n)$.
+
+Memorijska složenost je $O(1)$, jer se koristi konstantan broj promenljivih.
+
 
 \end{document}
