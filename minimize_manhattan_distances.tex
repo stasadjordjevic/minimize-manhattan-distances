@@ -14,7 +14,7 @@
 \newtheorem{lemma}{Lema}
 \newtheorem{theorem}{Teorema}
 
-
+\usepackage{float}
 
 \hypersetup{
     colorlinks=true,
@@ -66,17 +66,29 @@ Zadatak je pronaći
 Intuitivno, cilj je ukloniti tačku koja najviše razvlači skup, odnosno
 tačku čije prisustvo uzrokuje veliko maksimalno rastojanje između nekog para tačaka.
 
-\subsection*{Primer}
-%TODO dodati sliku
-Posmatrajmo skup od četiri tačke:
-\[
-(0,0),\ (1,1),\ (2,2),\ (10,10).
-\]
-Tačka $(10,10)$ je značajno udaljena od ostalih i određuje maksimalno
-Menhetn rastojanje u skupu.  
 
-Uklanjanjem ove tačke maksimalno rastojanje među preostalim tačkama
-značajno se smanjuje, što ilustruje suštinu problema.
+U narednom primeru posmatramo skup od 10 tačaka u ravni. Na slikama vidimo kako tačka koja je značajno udaljena od ostalih određuje maksimalno Menhetn rastojanje u skupu, te kako njenim uklanjanjem to rastojanje znatno smanjujemo.
+
+\subsection*{Primer}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{./images/pocetno_stanje.png}
+        \caption{Početno stanje skupa}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{images/max_rastojanje.png}
+        \caption{Maksimalni par tačaka}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{images/nakon_uklanjanja.png}
+        \caption{Nakon uklanjanja tačke}
+    \end{subfigure}
+    \caption{Primer primene algoritma.}
+\end{figure}
 
 \medskip
 

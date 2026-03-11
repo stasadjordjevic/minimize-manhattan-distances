@@ -201,7 +201,7 @@ void Canvas::paintEvent(QPaintEvent*) {
         QPointF mid((a.x()+b.x())/2-10, (a.y()+b.y())/2-12);
         p.setPen(QColor(100,240,160));
         p.setFont(QFont("Courier New", 10, QFont::Bold));
-        p.drawText(mid.toPoint(), QString("d=%1 ✓").arg(rd));
+        p.drawText(mid.toPoint(), QString("d=%1").arg(rd));
     }
 
     for (int i = 0; i < (int)points.size(); i++)
@@ -255,7 +255,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 
     //canvas->points = {{3,10},{5,15},{10,2},{4,4}};
     canvas->points = {{1,4}, {3,11}, {6,1}, {8,9}, {12,5},
-        {15,13}, {10,7}, {4,15}, {13,2}, {7,6}};
+        {15,13}, {10,7}, {4,15}, {13,2}, {7,30}};
     currentStep = STEP_INITIAL;
     canvas->computeUpTo(STEP_INITIAL);
     updateUI();
